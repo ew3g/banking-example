@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: Banking Example
+  description: |-
+    This API is responsible to deal with bank accounts and its transactions.
+  contact:
+    email: edilson.w3g@gmail.com
+  license:
+    name: MIT License
+    url: https://mit-license.org/
+  version: 0.0.1
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: account
+    description: Accounts operations
+  - name: transaction
+    description: Transactions operations
+paths:
+  /accounts:
+    post:
+      tags:
+        - account
+      summary: Create a new account
+      description: Create a new account
+      operationId: createAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'          
+        '400':
+          description: Invalid request
+  /account/{accountId}:
+    get:
+      tags:
+        - account
+      summary: Find Account By Id
+      description: Find an account by its id
+      operationId: findAccountByID
+      parameters:
+        - name: accountId
+          in: path
+          description: Account unique id
+          required: true
+          schema:
+            type: number
+            format: int64
+            example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'          
+        '400':
+          description: Invalid request
+        '404':
+          description: Not found
+  /transactions:
+    post:
+      tags:
+        - transaction
+      summary: Create a transaction
+      description: Create a transaction.
+      operationId: createTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'          
+        '400':
+          description: Invalid request
+        '422':
+          description: Validation error
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        account_id:
+          type: integer
+          format: int64
+          example: 1
+        document_number:
+          type: string
+          example: '12345678900'
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+          format: int64
+          example: 1
+        account_id:
+          type: integer
+          format: int64
+          example: 1
+        operation_type_id:
+          type: integer
+          format: int32
+        amount:
+          type: number
+          format: double
+          example: 123.45
