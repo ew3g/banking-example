@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:h2:file:./src/main/resources/data/demo
-    username: test
-    password: mypassword
+    url: ${DATABASE_JDBC_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driverClassName: org.h2.Driver
   h2:
     console:
