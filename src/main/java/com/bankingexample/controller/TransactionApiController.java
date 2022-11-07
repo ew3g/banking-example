@@ -1,6 +1,9 @@
 package com.bankingexample.controller;
 
+import com.bankingexample.dto.TransactionDTO;
 import com.bankingexample.model.Transaction;
+import com.bankingexample.repository.TransactionRepository;
+import com.bankingexample.service.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -23,29 +26,14 @@ public class TransactionApiController implements TransactionApi{
 
     private static final Logger log = LoggerFactory.getLogger(TransactionApiController.class);
 
-    private final ObjectMapper objectMapper;
-
-    private final HttpServletRequest request;
+    private TransactionService transactionService;
 
     @Autowired
-    public TransactionApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
+    public TransactionApiController(TransactionService transactionService) {
+       this.transactionService = transactionService;
     }
 
-    public ResponseEntity<List<Transaction>> createTransaction(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody Transaction body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<List<Transaction>>(objectMapper.readValue("[ {\n  \"transaction_id\" : 1,\n  \"amount\" : 123.45,\n  \"account_id\" : 1,\n  \"operation_type_id\" : 0\n}, {\n  \"transaction_id\" : 1,\n  \"amount\" : 123.45,\n  \"account_id\" : 1,\n  \"operation_type_id\" : 0\n} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Transaction>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<List<Transaction>>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<TransactionDTO> createTransaction(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody TransactionDTO transactionDTO) {
+        return new ResponseEntity<>(transactionService.save(transactionDTO).toTransactionDTO(), HttpStatus.CREATED);
     }
-
-
 }

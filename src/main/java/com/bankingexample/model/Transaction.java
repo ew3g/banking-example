@@ -1,10 +1,7 @@
 package com.bankingexample.model;
 
-import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.bankingexample.dto.TransactionDTO;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -13,29 +10,26 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transaction")
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
 
-    @SerializedName("transaction_id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "transaction_id")
     private Long transactionId;
 
-    @SerializedName("account_id")
     @Column(name = "account_id")
     private Long accountId;
 
-    @SerializedName("operation_type_id")
     @Column(name = "operation_type_id")
-    private Integer operationTypeId;
+    private Long operationTypeId;
 
     private BigDecimal amount;
 
-    @SerializedName("event_date")
     @CreationTimestamp
     private LocalDateTime eventDate;
 
@@ -46,4 +40,14 @@ public class Transaction {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "operation_type_id", insertable = false, updatable = false)
     private OperationType operationType;
+
+    public TransactionDTO toTransactionDTO() {
+        return TransactionDTO.builder()
+                .transactionId(this.transactionId)
+                .accountId(this.accountId)
+                .operationTypeId(this.operationTypeId)
+                .amount(this.amount)
+                .eventDate(this.eventDate)
+                .build();
+    }
 }

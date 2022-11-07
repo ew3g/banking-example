@@ -1,28 +1,29 @@
 CREATE TABLE IF NOT EXISTS operation_type (
     operation_type_id BIGINT IDENTITY PRIMARY KEY,
+    internal_code INT UNIQUE,
     description VARCHAR(255) UNIQUE
 );
 
-INSERT INTO operation_type (description)
-    SELECT * FROM (SELECT 'PURCHASE') AS tmp
+INSERT INTO operation_type (internal_code, description)
+    SELECT * FROM (SELECT 1, 'PURCHASE') AS tmp
 WHERE NOT EXISTS (
     SELECT description FROM operation_type WHERE description = 'PURCHASE'
 );
 
-INSERT INTO operation_type (description)
-SELECT * FROM (SELECT 'INSTALLMENT PURCHASE') AS tmp
+INSERT INTO operation_type (internal_code, description)
+SELECT * FROM (SELECT 2, 'INSTALLMENT PURCHASE') AS tmp
 WHERE NOT EXISTS (
         SELECT description FROM operation_type WHERE description = 'INSTALLMENT PURCHASE'
 );
 
-INSERT INTO operation_type (description)
-SELECT * FROM (SELECT 'WITHDRAWAL') AS tmp
+INSERT INTO operation_type (internal_code, description)
+SELECT * FROM (SELECT 3, 'WITHDRAWAL') AS tmp
 WHERE NOT EXISTS (
         SELECT description FROM operation_type WHERE description = 'WITHDRAWAL'
 );
 
-INSERT INTO operation_type (description)
-SELECT * FROM (SELECT 'PAYMENT') AS tmp
+INSERT INTO operation_type (internal_code, description)
+SELECT * FROM (SELECT 4, 'PAYMENT') AS tmp
 WHERE NOT EXISTS (
         SELECT description FROM operation_type WHERE description = 'PAYMENT'
 );

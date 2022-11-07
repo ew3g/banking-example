@@ -1,15 +1,14 @@
 package com.bankingexample.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import io.swagger.v3.oas.annotations.Hidden;
+import lombok.*;
 
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "operation_type")
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,9 +16,12 @@ import javax.persistence.*;
 public class OperationType {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "operation_type_id")
     private Long id;
+
+    @Column(name = "internal_code")
+    private Integer internalCode;
 
     @Column(unique = true)
     private String description;

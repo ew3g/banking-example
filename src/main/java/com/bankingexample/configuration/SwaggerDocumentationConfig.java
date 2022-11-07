@@ -1,5 +1,8 @@
 package com.bankingexample.configuration;
 
+import com.bankingexample.model.Account;
+import com.bankingexample.model.OperationType;
+import com.bankingexample.model.Transaction;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -24,6 +27,7 @@ public class SwaggerDocumentationConfig {
                     .build()
                 .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
+                .ignoredParameterTypes(Account.class, OperationType.class, Transaction.class)
                 .apiInfo(apiInfo());
     }
 

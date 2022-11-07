@@ -1,28 +1,31 @@
 package com.bankingexample.model;
 
-import com.google.gson.annotations.SerializedName;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.bankingexample.dto.AccountDTO;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "account")
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
 
-    @SerializedName("account_id")
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
     private Long id;
 
-    @SerializedName("document_number")
     @Column(length = 14, unique = true)
     private String documentNumber;
+
+    public AccountDTO toAccountDTO() {
+        return AccountDTO.builder()
+                .id(this.id)
+                .documentNumber(this.documentNumber)
+                .build();
+    }
 }
