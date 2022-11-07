@@ -1,7 +1,6 @@
 package com.bankingexample.controller;
 
 import com.bankingexample.dto.TransactionDTO;
-import com.bankingexample.model.Transaction;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Api(tags = "transaction")
 @Validated

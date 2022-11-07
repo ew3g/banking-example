@@ -1,12 +1,8 @@
 package com.bankingexample.controller;
 
 import com.bankingexample.dto.AccountDTO;
-import com.bankingexample.model.Account;
-import com.bankingexample.model.Transaction;
-import com.bankingexample.repository.OperationTypeRepository;
-import com.bankingexample.repository.TransactionRepository;
+import com.bankingexample.error.BusinessException;
 import com.bankingexample.service.AccountService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -19,11 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 public class AccountApiController implements AccountApi {
@@ -42,7 +34,7 @@ public class AccountApiController implements AccountApi {
     }
 
     @Override
-    public ResponseEntity<AccountDTO> createAccount(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<AccountDTO> createAccount(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody AccountDTO accountDTO) throws BusinessException {
         return new ResponseEntity<>(accountService.save(accountDTO).toAccountDTO(), HttpStatus.CREATED);
     }
 }

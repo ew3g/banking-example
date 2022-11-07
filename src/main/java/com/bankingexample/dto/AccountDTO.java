@@ -2,7 +2,6 @@ package com.bankingexample.dto;
 
 import com.bankingexample.model.Account;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
