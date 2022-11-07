@@ -17,7 +17,6 @@ import javax.validation.Valid;
 
 @RestController
 public class TransactionApiController implements TransactionApi{
-
     private static final Logger log = LoggerFactory.getLogger(TransactionApiController.class);
 
     private TransactionService transactionService;

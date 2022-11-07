@@ -22,7 +22,6 @@ import javax.validation.Valid;
 @Api(tags = "account")
 @Validated
 public interface AccountApi {
-
     @Operation(summary = "Find Account By Id", description = "Find an account by its id", tags={ "account" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AccountDTO.class))),

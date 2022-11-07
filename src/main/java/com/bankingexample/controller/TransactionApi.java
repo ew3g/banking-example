@@ -21,7 +21,6 @@ import javax.validation.Valid;
 @Api(tags = "transaction")
 @Validated
 public interface TransactionApi {
-
     @Operation(summary = "Create a transaction", description = "Create a transaction.", tags={ "transaction" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = TransactionDTO.class)))),

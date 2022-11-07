@@ -19,7 +19,6 @@ import javax.validation.Valid;
 
 @RestController
 public class AccountApiController implements AccountApi {
-
     private static final Logger log = LoggerFactory.getLogger(AccountApiController.class);
 
     private final AccountService accountService;
@@ -34,7 +33,9 @@ public class AccountApiController implements AccountApi {
     }
 
     @Override
-    public ResponseEntity<AccountDTO> createAccount(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody AccountDTO accountDTO) throws BusinessException {
+    public ResponseEntity<AccountDTO> createAccount(
+            @Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema())
+            @Valid @RequestBody AccountDTO accountDTO) throws BusinessException {
         return new ResponseEntity<>(accountService.save(accountDTO).toAccountDTO(), HttpStatus.CREATED);
     }
 }
