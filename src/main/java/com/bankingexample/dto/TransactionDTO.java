@@ -10,10 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class TransactionDTO implements Serializable {
 
     private static final long serialVersionUID = -3365914641657631690L;

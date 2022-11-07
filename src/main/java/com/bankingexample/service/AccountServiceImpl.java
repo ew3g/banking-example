@@ -2,6 +2,7 @@ package com.bankingexample.service;
 
 import com.bankingexample.dto.AccountDTO;
 import com.bankingexample.error.BusinessException;
+import com.bankingexample.error.ErrorConstants;
 import com.bankingexample.model.Account;
 import com.bankingexample.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class AccountServiceImpl implements AccountService{
         if(accountRepository.findFirstByDocumentNumber(accountDTO.getDocumentNumber()).isPresent())
             throw BusinessException.builder()
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .internalMessage("Já existe")
-                    .message("Já existe")
+                    .internalMessage(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, accountDTO))
+                    .message(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, accountDTO))
                     .build();
 
         return accountRepository.save(accountDTO.toAccount());

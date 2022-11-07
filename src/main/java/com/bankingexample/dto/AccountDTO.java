@@ -7,10 +7,7 @@ import lombok.*;
 import java.io.Serializable;
 
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class AccountDTO implements Serializable {
 
     private static final long serialVersionUID = 7490064969990183564L;
@@ -18,7 +15,7 @@ public class AccountDTO implements Serializable {
     @JsonProperty("account_id")
     private Long id;
 
-    @JsonProperty("account_number")
+    @JsonProperty("document_number")
     private String documentNumber;
 
     public Account toAccount() {
