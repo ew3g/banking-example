@@ -29,7 +29,7 @@ public class AccountApiController implements AccountApi {
     }
 
     public ResponseEntity<AccountDTO> findAccountByID(@Parameter(in = ParameterIn.PATH, description = "Account unique id", required=true, schema=@Schema()) @PathVariable("accountId") Long accountId) {
-        return new ResponseEntity<>(accountService.findAccountById(accountId).toAccountDTO(), HttpStatus.OK);
+        return new ResponseEntity<>(accountService.findById(accountId).toAccountDTO(), HttpStatus.OK);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ public class TransactionDTO implements Serializable {
     private Long operationTypeId;
     @JsonProperty("amount")
     @NotNull
+    @Min(0)
     private BigDecimal amount;
     @JsonIgnore
     private LocalDateTime eventDate;

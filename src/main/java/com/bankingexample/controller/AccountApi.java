@@ -2,10 +2,12 @@ package com.bankingexample.controller;
 
 import com.bankingexample.dto.AccountDTO;
 import com.bankingexample.error.BusinessException;
+import com.bankingexample.error.ErrorResponse;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,8 +27,8 @@ public interface AccountApi {
     @Operation(summary = "Find Account By Id", description = "Find an account by its id", tags={ "account" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AccountDTO.class))),
-        @ApiResponse(responseCode = "400", description = "Invalid request"),
-        @ApiResponse(responseCode = "404", description = "Not found") })
+        @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class)))),
+        @ApiResponse(responseCode = "404", description = "Not found", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class)))) })
     @RequestMapping(value = "/account/{accountId}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -36,7 +38,7 @@ public interface AccountApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AccountDTO.class))),
 
-            @ApiResponse(responseCode = "400", description = "Invalid request") })
+            @ApiResponse(responseCode = "400", description = "Invalid request", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ErrorResponse.class)))) })
     @RequestMapping(value = "/accounts",
             produces = { "application/json" },
             consumes = { "application/json" },

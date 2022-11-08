@@ -81,7 +81,7 @@ Response:
 > docker build -t coding/banking-example .
 
 - Run
->docker run -e "JAVA_TOOL_OPTIONS=-DDATABASE_JDBC_URL=jdbc:h2:file:./src/main/resources/data/demo -DDATABASE_PASSWORD=mypassword -DDATABASE_USERNAME=test" -p 8080:8080 -t coding/banking-example
+>docker run -e "JAVA_TOOL_OPTIONS=-DDATABASE_JDBC_URL=jdbc:h2:file:./src/main/resources/data/demo -DDATABASE_PASSWORD=yourpassword -DDATABASE_USERNAME=youruser" -p 8080:8080 -t coding/banking-example
 
 ## Developers
 [Edilson Rodrigues](https://www.github.com/ew3g)

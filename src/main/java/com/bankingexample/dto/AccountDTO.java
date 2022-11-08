@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -20,7 +21,8 @@ public class AccountDTO implements Serializable {
     @JsonProperty("document_number")
     @NotNull
     @NotBlank
-    @Size(max = 14)
+    @Size(min = 10, max = 14)
+    @Pattern(regexp = "^[\\d]{10,14}$", message = "numbers only, 10-14 characters long")
     private String documentNumber;
 
     public Account toAccount() {

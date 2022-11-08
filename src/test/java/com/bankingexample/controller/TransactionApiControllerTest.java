@@ -31,8 +31,8 @@ public class TransactionApiControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("SaveTransaction - Should save a new transaction")
-    void shouldSaveTransaction() throws Exception {
+    @DisplayName("SaveTransaction - Should save a new negative transaction")
+    void shouldSaveNegativeTransaction() throws Exception {
         TransactionDTO requestTransaction = TransactionDTO.builder()
                 .accountId(1L)
                 .operationTypeId(1L)
@@ -41,6 +41,20 @@ public class TransactionApiControllerTest {
         mockMvc.perform(post("/transactions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestTransaction)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("SaveTransaction - Should save a new positive transaction")
+    void shouldSavePositiveTransaction() throws Exception {
+        TransactionDTO requestTransaction = TransactionDTO.builder()
+                .accountId(1L)
+                .operationTypeId(4L)
+                .amount(BigDecimal.valueOf(10L))
+                .build();
+        mockMvc.perform(post("/transactions")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestTransaction)))
                 .andExpect(status().isCreated());
     }
 }

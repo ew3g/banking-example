@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AccountServiceImpl implements AccountService{
 
@@ -20,19 +22,29 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account findAccountById(Long id) {
+    public Account findById(Long id) {
         return accountRepository.getById(id);
+    }
+
+    @Override
+    public Optional<Account> findOptionalById(Long id) {
+        return accountRepository.findById(id);
     }
 
     @Override
     public Account save(AccountDTO accountDTO) throws BusinessException {
 
-        if(accountRepository.findFirstByDocumentNumber(accountDTO.getDocumentNumber()).isPresent())
+        Optional<Account> existingAccountOpt = accountRepository
+                .findFirstByDocumentNumber(accountDTO.getDocumentNumber());
+
+        if(existingAccountOpt.isPresent()) {
+            Account existingAccount = existingAccountOpt.get();
             throw BusinessException.builder()
                     .code(HttpStatus.BAD_REQUEST.value())
-                    .internalMessage(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, accountDTO))
-                    .message(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, accountDTO))
+                    .internalMessage(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, existingAccount))
+                    .message(String.format(ErrorConstants.ERROR_ALREADY_EXISTS, existingAccount))
                     .build();
+        }
 
         return accountRepository.save(accountDTO.toAccount());
     }

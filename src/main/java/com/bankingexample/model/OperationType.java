@@ -1,5 +1,6 @@
 package com.bankingexample.model;
 
+import enums.OperationTypeBehaviorEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,4 +25,7 @@ public class OperationType {
 
     @Column(unique = true)
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private OperationTypeBehaviorEnum behavior;
 }
