@@ -72,7 +72,7 @@ Response:
 ### Local maven
 
 - Build and run
-> mvn clean package && java -DDATABASE_JDBC_URL=jdbc:mysql://localhost:3306/pismo -DDATABASE_PASSWORD=pismopass -DDATABASE_USERNAME=pismo -jar target/*.jar
+> mvn clean package && java -DDATABASE_JDBC_URL=jdbc:mysql://localhost:3306/yourdb -DDATABASE_PASSWORD=yourpass -DDATABASE_USERNAME=youruser -jar target/*.jar
 
 ### Docker
 - Build and run
