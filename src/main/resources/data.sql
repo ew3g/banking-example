@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS operation_type (
-    operation_type_id BIGINT IDENTITY PRIMARY KEY,
+    operation_type_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     internal_code INT UNIQUE,
     description VARCHAR(255) UNIQUE,
     behavior VARCHAR(255)
@@ -30,7 +30,7 @@ WHERE NOT EXISTS (
 );
 
 CREATE TABLE IF NOT EXISTS account (
-    account_id BIGINT IDENTITY PRIMARY KEY,
+    account_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     document_number VARCHAR(14) UNIQUE
 );
 
@@ -41,7 +41,7 @@ WHERE NOT EXISTS (
 );
 
 CREATE TABLE IF NOT EXISTS transaction (
-    transaction_id BIGINT IDENTITY PRIMARY KEY,
+    transaction_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     account_id BIGINT,
     operation_type_id BIGINT,
     amount DECIMAL(15, 2),

@@ -4,13 +4,6 @@ spring:
     username: test
     password: test
     driverClassName: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        trace: false
-        web-allow-others: false
   jpa:
     defer-datasource-initialization: true
     properties:
