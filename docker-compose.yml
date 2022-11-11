@@ -1,7 +1,6 @@
 version: "3"
 services:
-
-  server:
+  application:
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -13,19 +12,19 @@ services:
       - spring.datasource.username=pismo_user
       - spring.datasource.password=pismo_pass
     networks:
-      - springmysql-net
+      - mysql-net
     depends_on:
       - mysqldb
-
   mysqldb:
     image: mysql:5.7
+    ports:
+      - "3307:3306"
     networks:
-      - springmysql-net
+      - mysql-net
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=pismodb
       - MYSQL_USER=pismo_user
       - MYSQL_PASSWORD=pismo_pass
-
 networks:
-  springmysql-net:
+  mysql-net:
