@@ -13,3 +13,8 @@ spring:
     init:
       mode: always
       schema-locations: classpath:data-test.sql
+  mvc:
+    format:
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+      time: HH:mm:ss
