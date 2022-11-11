@@ -70,15 +70,13 @@ Response:
 
 ## Deployment
 ### Local maven
-- Prepare maven
-> mvn wrapper:wrapper
 
 - Build and run
-> ./mvnw package && java -DDATABASE_JDBC_URL=jdbc:h2:file:./src/main/resources/data/demo -DDATABASE_PASSWORD=yourpassword -DDATABASE_USERNAME=youruser -jar target/*.jar
+> mvn clean package && java -DDATABASE_JDBC_URL=jdbc:mysql://localhost:3306/pismo -DDATABASE_PASSWORD=pismopass -DDATABASE_USERNAME=pismo -jar target/*.jar
 
 ### Docker
-- Run
-> docker compose up --build
+- Build and run
+> mvn clean package && docker compose up --build
 
 ## Developers
 [Edilson Rodrigues](https://www.github.com/ew3g)
